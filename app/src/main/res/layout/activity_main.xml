@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+        <!-- You can add a Toolbar or other views here if needed -->
+        <!-- Example: <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/> -->
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background3"
+            android:id="@+id/relativeLayout">
+
+        <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="321dp"
+                app:srcCompat="@drawable/logo"
+                android:translationX="10dp"
+                android:translationY="80dp"
+                android:contentDescription="@string/image_description"/>
+
+        <Button
+                android:id="@+id/aSoup"
+                android:layout_width="175dp"
+                android:layout_height="60dp"
+                android:text="@string/aSoup"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@null"
+                android:translationX="120dp"
+                android:translationY="400dp" android:scaleX="1.2"/>
+        <Button
+                android:id="@+id/cBreaker"
+                android:layout_width="175dp"
+                android:layout_height="60dp"
+                android:text="@string/cBreaker"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@null"
+                android:translationX="120dp"
+                android:translationY="470dp" android:scaleX="1.2"/>
+        <Button
+                android:id="@+id/sQuest"
+                android:layout_width="175dp"
+                android:layout_height="60dp"
+                android:text="@string/sQuest"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@null"
+                android:translationX="120dp"
+                android:translationY="540dp" android:scaleX="1.2"/>
+        <ImageButton
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/info"
+                android:contentDescription="@string/info"
+                android:background="?attr/selectableItemBackground"
+                android:translationX="-8dp"
+                android:translationY="1dp" android:scaleX=".94" android:scaleY=".95" android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp" android:layout_marginStart="16dp" android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp" android:layout_marginBottom="16dp"/>
+        <ImageButton
+                android:id="@+id/settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/settings"
+                android:contentDescription="@string/settings"
+                android:background="?attr/selectableItemBackground"
+                android:layout_margin="16dp" android:scaleX=".95" android:scaleY=".94" android:translationX="330dp"
+                android:translationY="1dp"/>
+
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
