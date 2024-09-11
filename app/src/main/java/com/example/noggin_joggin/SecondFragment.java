@@ -37,7 +37,7 @@ private FragmentSecondBinding binding;
 @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        binding = null; // testing
     }
 
 }
