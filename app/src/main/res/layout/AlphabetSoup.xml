@@ -42,39 +42,47 @@
                 android:id="@+id/imageView6" tools:layout_editor_absoluteY="209dp"
                 tools:layout_editor_absoluteX="24dp"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/Letters"
-                tools:layout_editor_absoluteY="275dp" tools:layout_editor_absoluteX="24dp"/>
+                tools:layout_editor_absoluteY="275dp" tools:layout_editor_absoluteX="24dp"
+                android:background="#2B2D30" app:iconTint="#225B6D" android:backgroundTint="#367285"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/letters4" tools:layout_editor_absoluteY="275dp"
-                tools:layout_editor_absoluteX="334dp"/>
+                tools:layout_editor_absoluteX="334dp" android:background="#225B6D" app:iconTint="#225B6D"
+                android:backgroundTint="#225B6D" app:strokeColor="#225B6D" app:rippleColor="#225B6D"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/letters3" tools:layout_editor_absoluteY="275dp"
-                tools:layout_editor_absoluteX="270dp"/>
+                tools:layout_editor_absoluteX="270dp" android:background="#2B2D30" app:iconTint="#225B6D"
+                android:backgroundTint="#367285"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/letters" tools:layout_editor_absoluteY="275dp"
-                tools:layout_editor_absoluteX="209dp"/>
+                tools:layout_editor_absoluteX="209dp" android:background="#2B2D30" app:iconTint="#225B6D"
+                android:backgroundTint="#367285"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/letters5"
-                tools:layout_editor_absoluteY="275dp" tools:layout_editor_absoluteX="87dp"/>
+                tools:layout_editor_absoluteY="275dp" tools:layout_editor_absoluteX="87dp"
+                android:background="#2B2D30" app:iconTint="#225B6D" android:backgroundTint="#367285"/>
         <Button
-                android:text="Button"
                 android:layout_width="54dp"
                 android:layout_height="60dp" android:id="@+id/Letters" tools:layout_editor_absoluteY="275dp"
-                tools:layout_editor_absoluteX="148dp"/>
+                tools:layout_editor_absoluteX="148dp" android:background="#2B2D30" app:iconTint="#225B6D"
+                android:backgroundTint="#367285"/>
         <Button
-                android:text="Button"
+                android:text="Submit Word"
                 android:layout_width="240dp"
                 android:layout_height="73dp" android:id="@+id/button3" tools:layout_editor_absoluteY="619dp"
-                tools:layout_editor_absoluteX="85dp"/>
+                tools:layout_editor_absoluteX="85dp" android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:background="#2B2D30" android:backgroundTint="#367285"/>
+        <TextView
+                android:text="Words Found"
+                android:layout_width="201dp"
+                android:layout_height="44dp" android:id="@+id/textView" tools:layout_editor_absoluteY="348dp"
+                tools:layout_editor_absoluteX="105dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" android:textAlignment="center"
+                android:textStyle="bold" android:textAllCaps="false"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
