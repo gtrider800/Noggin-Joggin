@@ -7,7 +7,7 @@
     <!-- Secondary Button Style -->
     <style name="SecondaryButtonStyle" parent="BaseButtonStyle">
         <item name="android:background">@drawable/button_background</item>
-        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:backgroundTint">@null</item>
         <item name="android:textColor">@color/white</item>
     </style>
 </resources>
