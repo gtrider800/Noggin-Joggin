@@ -28,8 +28,8 @@
                 android:id="@+id/aSoup"
                 android:layout_width="175dp"
                 android:layout_height="60dp"
+                style="@style/SecondaryButtonStyle"
                 android:text="@string/aSoup"
-                android:background="@drawable/button_background"
                 android:scaleX="1.2"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" android:layout_marginTop="40dp"/>
@@ -39,6 +39,7 @@
                 android:layout_width="175dp"
                 android:layout_height="60dp"
                 android:text="@string/cBreaker"
+                android:backgroundTint="@null"
                 android:background="@drawable/button_background"
                 android:translationX="0dp"
                 android:scaleX="1.2" app:layout_constraintTop_toBottomOf="@+id/aSoup"
