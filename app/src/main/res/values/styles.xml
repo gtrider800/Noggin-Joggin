@@ -5,8 +5,14 @@
     </style>
 
     <!-- Secondary Button Style -->
-    <style name="SecondaryButtonStyle" parent="BaseButtonStyle">
+    <style name="HomeButtonStyle" parent="BaseButtonStyle">
         <item name="android:background">@drawable/button_background</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CodeButtonStyle" parent="BaseButtonStyle">
+        <item name="android:background">@drawable/code_button</item>
         <item name="android:backgroundTint">@null</item>
         <item name="android:textColor">@color/white</item>
     </style>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background3"
+            android:id="@+id/relativeLayout" tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="-206dp">
+
+        <ImageButton
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/info"
+                android:contentDescription="@string/info"
+                android:background="?attr/selectableItemBackground"
+                android:scaleX=".94"
+                android:scaleY=".95"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="15dp" android:layout_marginTop="15dp"/>
+
+        <ImageButton
+                android:id="@+id/settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/settings"
+                android:contentDescription="@string/settings"
+                android:background="?attr/selectableItemBackground"
+                android:scaleX=".95"
+                android:scaleY=".94"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"/>
+
+        <Button
+                android:id="@+id/cBHome"
+                android:layout_width="108dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@color/home_button"
+                android:text="@string/Home"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.067" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="25dp" android:layout_marginStart="20dp" android:gravity="center"/>
+
+        <Button
+                android:id="@+id/hint"
+                android:layout_width="108dp"
+                android:layout_height="48dp"
+                android:background="@drawable/button_background"
+                app:backgroundTint="@color/hint_button"
+                android:text="@string/hint"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.866" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="25dp" android:gravity="center" android:layout_marginEnd="20dp"/>
+        <TextView
+                android:text="Code Breaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="100dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

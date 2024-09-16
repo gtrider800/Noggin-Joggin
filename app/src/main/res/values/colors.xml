@@ -3,4 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_background_color">#078192</color>
+    <color name="code_default">#E2A97E</color>
+    <color name="home_button">#F3AF28</color>
+    <color name="hint_button">#E38561</color>
+
 </resources>
