@@ -9,11 +9,19 @@
     <string name="aSoup">Alphabet Soup</string>
     <string name="Logo">Logo of the company</string>
     <string name="cBreaker">Code Breaker</string>
+    <string name = "code">Code Breaker</string>
     <string name="sQuest">Sequence Quest</string>
     <string name="info">infoBtn</string>
     <string name="settings">SettingsBtn</string>
     <string name="Home">Home</string>
     <string name="hint">Hint</string>
+    <string name="information">Information</string>
+    <string name="info_message"><![CDATA[ Welcome to Noggin Joggin, a brain-teaser game for kids of all ages. Consisting of multiple games to get your mind thinking and enhance your critical thinking skills.<br/><br/>
+        <b>Alphabet Soup</b> is an anagram game where you are tasked with creating as many words as you can with the letters of the word provided.<br/><br/>
+        <b>Code Breaker</b> is a game where you must guess the correct color sequence in the allowed amount of guesses. You will have indicators for if the color is in the correct spot (green) and if it is the correct color but in the incorrect spot (orange).<br/><br/>
+        <b>Electric Link</b> is a maze game where you are trying to create a path for the electricity to follow to energize the light. Each section of wire can be rotated by clicking on it.]]>
+    </string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris volutpat, dolor id

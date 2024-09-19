@@ -66,12 +66,13 @@
                 app:layout_constraintHorizontal_bias="0.866" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="25dp" android:gravity="center" android:layout_marginEnd="20dp"/>
         <TextView
-                android:text="Code Breaker"
+                android:text="@string/code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="100dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.example.noggin_joggin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,15 +15,13 @@ public class code_breaker extends AppCompatActivity {
         Button colorButton = findViewById(R.id.cBHome);
 
         // Set an OnClickListener on the button
-        colorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an intent to start the new activity
-                Intent intent = new Intent(code_breaker.this, MainActivity.class);
-                // Start the new activity
-                startActivity(intent);
-            }
+        colorButton.setOnClickListener(v -> {
+            // Create an intent to start the new activity
+            Intent intent = new Intent(code_breaker.this, MainActivity.class);
+            // Start the new activity
+            startActivity(intent);
         });
     }
+
 }
 
