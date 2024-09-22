@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Noggin_Joggin"
         tools:targetApi="31" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ElectricLinkActivity"
             android:exported="true"
             android:theme="@style/Theme.Noggin_Joggin" >
             <intent-filter>

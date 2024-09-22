@@ -12,6 +12,9 @@
     <string name="sQuest">Sequence Quest</string>
     <string name="info">infoBtn</string>
     <string name="settings">SettingsBtn</string>
+    <string name="score">Score: </string>
+    <string name="reset">Reset</string>
+    <string name="electric_link">Electric Link</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris volutpat, dolor id
