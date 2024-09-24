@@ -16,6 +16,9 @@
     <string name="Home">Home</string>
     <string name="hint">Hint</string>
     <string name="information">Information</string>
+
+    <!--code_breaker strings-->
+
     <string name="submit">Submit</string>
     <string name="info_message"><![CDATA[ Welcome to Noggin Joggin, a brain-teaser game for kids of all ages. Consisting of multiple games to get your mind thinking and enhance your critical thinking skills.<br/><br/>
         <b>Alphabet Soup</b> is an anagram game where you are tasked with creating as many words as you can with the letters of the word provided.<br/><br/>
