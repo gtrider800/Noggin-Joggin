@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public class AlphabetSoup {
 
-    // Constructor or method where file reading logic is needed
     public AlphabetSoup() {
         loadInputWords();  // Automatically load the inputWords.txt file
     }
@@ -14,7 +13,7 @@ public class AlphabetSoup {
     // Method to load the inputWords.txt file
     private void loadInputWords() {
         // Relative path to the inputWords.txt file
-        String filePath = "inputWords.txt";  // Adjust this if needed
+        String filePath = "inputWords.txt";
 
         // Create a File object using the relative path
         File file = new File(filePath);
@@ -36,9 +35,9 @@ public class AlphabetSoup {
         }
     }
 
-    // Example method to process each word (modify as needed for your logic)
+    // Example method to process each word
     private void processWord(String word) {
-        // Process the word (you can add your logic here)
+        // Process the word
         System.out.println("Processing word: " + word);
     }
 
