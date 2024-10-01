@@ -75,7 +75,17 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="155dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" android:textStyle="bold"
-                android:textAlignment="center"/>
+                android:textAlignment="center" tools:ignore="VisualLintOverlap"/>
+
+        <View
+                android:id="@+id/border2"
+                android:layout_width="394dp"
+                android:layout_height="93dp"
+                android:background="@drawable/border" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="228dp"
+                android:layout_marginStart="5dp" android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:translationY="30dp"/>
 
         <View
                 android:id="@+id/border1"
@@ -403,15 +413,7 @@
                 android:textStyle="bold" android:textAllCaps="false" android:translationY="30dp"
                 android:layout_marginTop="20dp"/>
 
-        <View
-                android:id="@+id/border2"
-                android:layout_width="394dp"
-                android:layout_height="93dp"
-                android:background="@drawable/border" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="228dp"
-                android:layout_marginStart="5dp" android:layout_marginEnd="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:translationY="30dp"/>
+
         <TextView
                 android:text="@string/guess_1_of_8"
                 android:layout_width="wrap_content"

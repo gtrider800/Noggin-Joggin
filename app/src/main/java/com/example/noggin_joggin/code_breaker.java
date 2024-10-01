@@ -46,12 +46,9 @@ public class code_breaker extends AppCompatActivity {
         generateRandomPattern();
 
         // Find the color buttons 13-20
-        // Buttons 13-20
-        Button[] colorButtons = new Button[8];
-        for (int i = 0; i < 8; i++) {
-            int buttonId = getResources().getIdentifier("button" + (13 + i), "id", getPackageName());
-            colorButtons[i] = findViewById(buttonId);
-            colorButtons[i].setOnClickListener(v -> {
+        for (int i = 13; i <= 20; i++) {
+            Button colorButton = findViewById(getButtonId(i));
+            colorButton.setOnClickListener(v -> {
                 if (lastTargetButton != null && !isColorButtonLocked) {
                     lastColorButton = (Button) v; // Store the last clicked color button
                     isColorButtonLocked = true; // Lock the color buttons
@@ -64,9 +61,8 @@ public class code_breaker extends AppCompatActivity {
         }
 
         // Find the buttons 1-12
-        for (int i = 0; i < 12; i++) {
-            int buttonId = getResources().getIdentifier("button" + (i + 1), "id", getPackageName());
-            Button targetButton = findViewById(buttonId);
+        for (int i = 1; i <= 12; i++) {
+            Button targetButton = findViewById(getButtonId(i));
             targetButton.setOnClickListener(v -> {
                 // Unlock color buttons when a target button is clicked
                 isColorButtonLocked = false;
@@ -80,6 +76,53 @@ public class code_breaker extends AppCompatActivity {
             Intent intent = new Intent(code_breaker.this, MainActivity.class);
             startActivity(intent);
         });
+    }
+
+    private int getButtonId(int index) {
+        switch (index) {
+            case 1:
+                return R.id.button1;
+            case 2:
+                return R.id.button2;
+            case 3:
+                return R.id.button3;
+            case 4:
+                return R.id.button4;
+            case 5:
+                return R.id.button5;
+            case 6:
+                return R.id.button6;
+            case 7:
+                return R.id.button7;
+            case 8:
+                return R.id.button8;
+            case 9:
+                return R.id.button9;
+            case 10:
+                return R.id.button10;
+            case 11:
+                return R.id.button11;
+            case 12:
+                return R.id.button12;
+            case 13:
+                return R.id.button13;
+            case 14:
+                return R.id.button14;
+            case 15:
+                return R.id.button15;
+            case 16:
+                return R.id.button16;
+            case 17:
+                return R.id.button17;
+            case 18:
+                return R.id.button18;
+            case 19:
+                return R.id.button19;
+            case 20:
+                return R.id.button20;
+            default:
+                throw new IllegalArgumentException("Invalid button index: " + index);
+        }
     }
 
     private void changeColorOfLastTargetButton() {
@@ -105,13 +148,11 @@ public class code_breaker extends AppCompatActivity {
                 int defaultColor = Color.parseColor("#E2A97E");
 
                 // Change the color of the next available answer button
-                for (int i = 0; i < 6; i++) {
-                    int buttonId = getResources().getIdentifier("button" + (i + 7), "id", getPackageName());
-                    Button answerButton = findViewById(buttonId);
+                for (int i = 7; i <= 12; i++) {
+                    Button answerButton = findViewById(getButtonId(i));
                     if (answerButton != null) {
                         ColorDrawable answerButtonColorDrawable = (ColorDrawable) answerButton.getBackground();
                         if (answerButtonColorDrawable != null) {
-                            // Check if the button is in its default state
                             if (answerButtonColorDrawable.getColor() == defaultColor) {
                                 answerButton.setBackgroundColor(color);
                                 break; // Only change the first available button
