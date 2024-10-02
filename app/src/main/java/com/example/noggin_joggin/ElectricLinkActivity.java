@@ -1,5 +1,6 @@
 package com.example.noggin_joggin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -25,7 +26,16 @@ public class ElectricLinkActivity extends AppCompatActivity
 
         Button resetButton = findViewById(R.id.reset_button);
         resetButton.setOnClickListener(v -> resetGame());
+
+        // Find the home button
+        Button colorButton = findViewById(R.id.home_button);
+        colorButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ElectricLinkActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
+
+
 
     private void setupGrid()
     {

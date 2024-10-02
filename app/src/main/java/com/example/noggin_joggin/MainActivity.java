@@ -1,5 +1,6 @@
 package com.example.noggin_joggin;
 
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Find the button by its ID
         Button codeButton = findViewById(R.id.cBreaker);
+        Button electricButton = findViewById(R.id.eLink);
 
         ImageButton infoButton = findViewById(R.id.info);
 
@@ -26,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         codeButton.setOnClickListener(v -> {
             // Create an intent to start the new activity
             Intent intent = new Intent(MainActivity.this, code_breaker.class);
+            // Start the new activity
+            startActivity(intent);
+        });
+
+        electricButton.setOnClickListener(v -> {
+            // Create an intent to start the new activity
+            Intent intent = new Intent(MainActivity.this, ElectricLinkActivity.class);
             // Start the new activity
             startActivity(intent);
         });

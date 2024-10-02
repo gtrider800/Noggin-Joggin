@@ -31,6 +31,12 @@
                 android:theme="@style/Theme.Noggin_Joggin" >
         </activity>
 
+        <activity
+                android:name=".ElectricLinkActivity"
+                android:exported="true"
+                android:theme="@style/Theme.Noggin_Joggin" >
+        </activity>
+
     </application>
 
 </manifest>
