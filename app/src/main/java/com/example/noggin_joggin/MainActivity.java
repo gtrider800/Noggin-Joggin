@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         // Find the button by its ID
         Button codeButton = findViewById(R.id.cBreaker);
         Button electricButton = findViewById(R.id.eLink);
-
         ImageButton infoButton = findViewById(R.id.info);
 
         // Set an OnClickListener on the button
