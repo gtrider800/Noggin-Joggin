@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background3"
+        tools:context=".AlphabetSoupActivity">
+
+    <!-- Background Button -->
+    <ImageButton
+            android:id="@+id/Background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/info"
+            android:contentDescription="@string/info"
+            android:background="?attr/selectableItemBackground"
+            android:scaleX=".94"
+            android:scaleY=".95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
+
+    <!-- Settings Button -->
+    <ImageButton
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/settings"
+            android:contentDescription="@string/settings"
+            android:background="?attr/selectableItemBackground"
+            android:scaleX=".95"
+            android:scaleY=".94"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp" />
+
+    <!-- Divider ImageView -->
+    <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:srcCompat="@android:drawable/divider_horizontal_textfield"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Background"
+            android:layout_marginTop="33dp" />
+
+    <!-- Submit Word Button -->
+    <Button
+            android:id="@+id/SubmitButton"
+            android:layout_width="240dp"
+            android:layout_height="73dp"
+            android:text="Submit Word"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:background="@drawable/letter_button"
+            android:textColor="#090404"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp" />
+
+    <!-- Words Found Text -->
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Words Found"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/Letter4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="33dp" />
+
+    <!-- Letter Buttons -->
+    <Button
+            android:id="@+id/Letter1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView6"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="33dp" />
+
+    <Button
+            android:id="@+id/Letter2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toEndOf="@id/Letter1"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/Letter1" />
+
+    <Button
+            android:id="@+id/Letter3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toEndOf="@id/Letter2"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/Letter1" />
+
+    <Button
+            android:id="@+id/Letter4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toEndOf="@id/Letter3"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/Letter1" />
+
+    <Button
+            android:id="@+id/Letter5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toEndOf="@id/Letter4"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/Letter1" />
+
+    <Button
+            android:id="@+id/Letter6"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/letter_button"
+            app:layout_constraintStart_toEndOf="@id/Letter5"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/Letter1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
