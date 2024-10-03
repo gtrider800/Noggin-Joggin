@@ -22,7 +22,7 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.AlphabetSoup); // Connect to your XML layout
+        setContentView(R.layout.alphabet_soup); // Connect to your XML layout
 
         // Bind the buttons to the UI
         letter1 = findViewById(R.id.Letter1);
