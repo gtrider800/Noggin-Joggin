@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Button codeButton = findViewById(R.id.cBreaker);
         Button electricButton = findViewById(R.id.eLink);
 
-        ImageButton infoButton = findViewById(R.id.info);
+//        ImageButton infoButton = findViewById(R.id.info);
 
         // Set an OnClickListener on the button
         codeButton.setOnClickListener(v -> {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        infoButton.setOnClickListener(v -> showInfoDialog());
+//        infoButton.setOnClickListener(v -> showInfoDialog());
     }
 
     public void showInfoDialog() {
