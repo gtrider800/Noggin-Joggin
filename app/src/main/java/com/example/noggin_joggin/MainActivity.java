@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         // Find the button by its ID
         Button codeButton = findViewById(R.id.cBreaker);
         Button electricButton = findViewById(R.id.eLink);
+        Button alphabetButton = findViewById(R.id.aSoup);
 
 //        ImageButton infoButton = findViewById(R.id.info);
 
@@ -37,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ElectricLinkActivity.class);
             // Start the new activity
             startActivity(intent);
+        });
+
+        alphabetButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AlphabetSoupActivity.class);
+                    startActivity(intent);
         });
 
 //        infoButton.setOnClickListener(v -> showInfoDialog());
