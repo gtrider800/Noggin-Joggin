@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -198,12 +199,16 @@ public class code_breaker extends AppCompatActivity {
         boolean[] guessed = new boolean[guessPattern.size()]; // Track guessed colors
         boolean[] keyUsed = new boolean[keyPattern.size()]; // Track used key colors
 
+        boolean hasAllCorrect = true; // Flag to check if all guesses are correct
+
         // First pass: Check for correct colors in correct positions
         for (int i = 0; i < guessPattern.size(); i++) {
             if (guessPattern.get(i).equals(keyPattern.get(i))) {
                 guessed[i] = true; // Mark as guessed
                 keyUsed[i] = true; // Mark key color as used
                 setIndicatorColor(i, Color.GREEN); // Green for correct position
+            } else {
+                hasAllCorrect = false; // Set to false if any guess is incorrect
             }
         }
 
@@ -214,10 +219,18 @@ public class code_breaker extends AppCompatActivity {
                     if (!keyUsed[j] && guessPattern.get(i).equals(keyPattern.get(j))) {
                         keyUsed[j] = true; // Mark key color as used
                         setIndicatorColor(i, Color.parseColor("#FF9800")); // Orange for correct color, wrong position
+                        hasAllCorrect = false; // Still not all correct if any match is found
                         break; // Break after finding the first match
                     }
                 }
             }
+        }
+
+        // Show Toast message if all colors were guessed correctly
+        if (hasAllCorrect) {
+            Toast.makeText(this, "Correct Guess! All colors match!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Some colors are incorrect. Try again!", Toast.LENGTH_SHORT).show();
         }
     }
     
