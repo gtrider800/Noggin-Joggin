@@ -4,7 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button_background_color">#078192</color>
     <color name="code_default">#E2A97E</color>
-    <color name="home_button">#F3AF28</color>
+    <color name="home_button">#E9A722</color>
     <color name="hint_button">#E38561</color>
+    <color name="green">#236626</color> <!-- Green for correct position -->
+    <color name="orange">#FF9800</color> <!-- Orange for correct color, wrong position -->
 
 </resources>

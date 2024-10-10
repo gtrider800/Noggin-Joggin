@@ -31,6 +31,7 @@
                 style="@style/HomeButtonStyle"
                 app:backgroundTint="@null"
                 android:text="@string/aSoup"
+                android:textSize="18sp"
                 android:scaleX="1.2"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" android:layout_marginTop="40dp"/>
@@ -42,6 +43,7 @@
                 style="@style/HomeButtonStyle"
                 app:backgroundTint="@null"
                 android:text="@string/cBreaker"
+                android:textSize="18sp"
                 android:translationX="0dp"
                 android:scaleX="1.2" app:layout_constraintTop_toBottomOf="@+id/aSoup"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +56,7 @@
                 style="@style/HomeButtonStyle"
                 app:backgroundTint="@null"
                 android:text="@string/electric_link"
+                android:textSize="18sp"
                 android:scaleX="1.2" app:layout_constraintTop_toBottomOf="@+id/cBreaker"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"/>
