@@ -1,9 +1,14 @@
 package com.example.noggin_joggin;
-
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,13 +16,11 @@ import java.util.Random;
 
 public class AlphabetSoupActivity extends AppCompatActivity {
 
-    // UI elements for the letter buttons
-    private Button letter1, letter2, letter3, letter4, letter5, letter6;
-
-    // UI element for displaying the selected letter
-    private TextView displayTextView;
-
+    // UI elements
+    private Button letter1, letter2, letter3, letter4, letter5, letter6, submitButton;
+    private TextView displayTextView, foundWordsTextView;
     private StringBuilder currentWord;
+    private List<String> foundWords; // To keep track of found words
 
     // Arrays for vowels and consonants
     private static final char[] VOWELS = {'A', 'E', 'I', 'O', 'U'};
@@ -28,88 +31,126 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.alphabet_soup); // Connect to your XML layout
+        setContentView(R.layout.alphabet_soup);
 
-
-        // Initialize the TextView and the StringBuilder for stacking letters
+        // Initialize UI components and word builder
         displayTextView = findViewById(R.id.displayTextView);
+        foundWordsTextView = findViewById(R.id.foundWordsTextView);
         currentWord = new StringBuilder();
+        foundWords = new ArrayList<>(); // Initialize the list for found words
 
-        // Set up click listeners for letter buttons
-        setLetterButtonClickListeners();
+        // Generate random letters for buttons
+        List<Character> randomLetters = generateRandomLetters();
+        setLettersToButtons(randomLetters);
+        setLetterButtonClickListeners(randomLetters);
+
+        // Set up click listener for Submit Button
+        submitButton = findViewById(R.id.SubmitButton);
+        submitButton.setOnClickListener(view -> checkWordInFile());
     }
-    private void setLetterButtonClickListeners() {
-        Button letter1 = findViewById(R.id.Letter1);
-        Button letter2 = findViewById(R.id.Letter2);
-        Button letter3 = findViewById(R.id.Letter3);
-        Button letter4 = findViewById(R.id.Letter4);
-        Button letter5 = findViewById(R.id.Letter5);
-        Button letter6 = findViewById(R.id.Letter6);
 
-        // Define onClickListener for each button, appending the letter to the TextView
-        letter1.setOnClickListener(view -> appendLetter("A"));
-        letter2.setOnClickListener(view -> appendLetter("B"));
-        letter3.setOnClickListener(view -> appendLetter("C"));
-        letter4.setOnClickListener(view -> appendLetter("D"));
-        letter5.setOnClickListener(view -> appendLetter("E"));
-        letter6.setOnClickListener(view -> appendLetter("F"));
+    private void checkWordInFile() {
+        String enteredWord = currentWord.toString().trim();
+        boolean isWordFound = false;
+
+        // Check if the word is already found
+        if (foundWords.contains(enteredWord)) {
+            Toast.makeText(this, "You have already found the word: " + enteredWord, Toast.LENGTH_SHORT).show();
+            clearInput();
+            return;
+        }
+
+        try {
+            // Access the file from assets
+            AssetManager assetManager = getAssets();
+            InputStream inputStream = assetManager.open("inputWords.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.equalsIgnoreCase(enteredWord)) {
+                    isWordFound = true;
+                    foundWords.add(enteredWord); // Add the found word to the list
+                    break;
+                }
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (isWordFound) {
+            Toast.makeText(this, "Word Found: " + enteredWord, Toast.LENGTH_SHORT).show();
+            updateFoundWordsDisplay(); // Update the display of found words
+        } else {
+            Toast.makeText(this, "Word not found. Try again.", Toast.LENGTH_SHORT).show();
+        }
+
+        // Clear the input after submission
+        clearInput();
+    }
+
+    private void clearInput() {
+        currentWord.setLength(0); // Reset current word
+        displayTextView.setText(""); // Clear the display TextView
+    }
+
+    private void updateFoundWordsDisplay() {
+        // Convert the list of found words to a string
+        StringBuilder wordsDisplay = new StringBuilder();
+        for (String word : foundWords) {
+            wordsDisplay.append(word).append("\n"); // Append each word on a new line
+        }
+        foundWordsTextView.setText(wordsDisplay.toString()); // Update the TextView to display found words
     }
 
     private void appendLetter(String letter) {
         currentWord.append(letter);
         displayTextView.setText(currentWord.toString());
     }
-    // Method to generate 6 unique random letters with at least 2 vowels
+
     private List<Character> generateRandomLetters() {
         Random random = new Random();
         List<Character> letters = new ArrayList<>();
 
-        // Convert the arrays to lists for easier manipulation
-        List<Character> availableVowels = new ArrayList<>();
-        List<Character> availableConsonants = new ArrayList<>();
-
-        // Add vowels and consonants to the lists
-        for (char vowel : VOWELS) availableVowels.add(vowel);
-        for (char consonant : CONSONANTS) availableConsonants.add(consonant);
-
-        // Step 1: Pick 2 random vowels without repetition
+        // Add 2 vowels
         for (int i = 0; i < 2; i++) {
-            int vowelIndex = random.nextInt(availableVowels.size());
-            letters.add(availableVowels.remove(vowelIndex));  // Remove the selected vowel
+            letters.add(VOWELS[random.nextInt(VOWELS.length)]);
         }
 
-        // Step 2: Pick 4 random consonants without repetition
+        // Add 4 consonants
         for (int i = 0; i < 4; i++) {
-            int consonantIndex = random.nextInt(availableConsonants.size());
-            letters.add(availableConsonants.remove(consonantIndex));  // Remove the selected consonant
+            letters.add(CONSONANTS[random.nextInt(CONSONANTS.length)]);
         }
 
-        // Step 3: Shuffle the letters to randomize their order
+        // Shuffle the letters
         Collections.shuffle(letters);
-
         return letters;
     }
 
-    // Set the generated letters to the buttons
     private void setLettersToButtons(List<Character> letters) {
-        if (letters.size() >= 6) {
-            letter1.setText(String.valueOf(letters.get(0)));
-            letter2.setText(String.valueOf(letters.get(1)));
-            letter3.setText(String.valueOf(letters.get(2)));
-            letter4.setText(String.valueOf(letters.get(3)));
-            letter5.setText(String.valueOf(letters.get(4)));
-            letter6.setText(String.valueOf(letters.get(5)));
-        }
+        letter1 = findViewById(R.id.Letter1);
+        letter2 = findViewById(R.id.Letter2);
+        letter3 = findViewById(R.id.Letter3);
+        letter4 = findViewById(R.id.Letter4);
+        letter5 = findViewById(R.id.Letter5);
+        letter6 = findViewById(R.id.Letter6);
+
+        letter1.setText(String.valueOf(letters.get(0)));
+        letter2.setText(String.valueOf(letters.get(1)));
+        letter3.setText(String.valueOf(letters.get(2)));
+        letter4.setText(String.valueOf(letters.get(3)));
+        letter5.setText(String.valueOf(letters.get(4)));
+        letter6.setText(String.valueOf(letters.get(5)));
     }
 
-    // Set up listeners for each letter button
-    private void setupLetterButtonListeners(List<Character> letters) {
-        // Update the display when a button is clicked
-        letter1.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(0))));
-        letter2.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(1))));
-        letter3.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(2))));
-        letter4.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(3))));
-        letter5.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(4))));
-        letter6.setOnClickListener(v -> displayTextView.setText(String.valueOf(letters.get(5))));
+    private void setLetterButtonClickListeners(List<Character> letters) {
+        letter1.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(0))));
+        letter2.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(1))));
+        letter3.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(2))));
+        letter4.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(3))));
+        letter5.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(4))));
+        letter6.setOnClickListener(view -> appendLetter(String.valueOf(letters.get(5))));
     }
 }
