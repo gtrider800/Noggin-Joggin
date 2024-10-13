@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.lang.Runnable;
 
 public class AlphabetSoupActivity extends AppCompatActivity {
 
@@ -47,6 +48,22 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         // Set up click listener for Submit Button
         submitButton = findViewById(R.id.SubmitButton);
         submitButton.setOnClickListener(view -> checkWordInFile());
+    }
+
+    private void run (){
+        this.runTimer();
+    }
+
+    private void runTimer() {
+        int seconds = 30;
+        while (seconds > 0) {
+            System.out.println(seconds);
+            try {
+                seconds--;
+                Thread.sleep(1000L);
+            }
+            catch (InterruptedException e) {}
+        }
     }
 
     private void checkWordInFile() {
