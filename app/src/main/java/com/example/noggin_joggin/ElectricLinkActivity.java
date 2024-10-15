@@ -1,6 +1,6 @@
 package com.example.noggin_joggin;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -26,16 +26,7 @@ public class ElectricLinkActivity extends AppCompatActivity
 
         Button resetButton = findViewById(R.id.reset_button);
         resetButton.setOnClickListener(v -> resetGame());
-
-        // Find the home button
-        Button colorButton = findViewById(R.id.home_button);
-        colorButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ElectricLinkActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
     }
-
-
 
     private void setupGrid()
     {
@@ -46,6 +37,17 @@ public class ElectricLinkActivity extends AppCompatActivity
             {
                 ImageView currentView = new ImageView(this);
                 currentView.setImageResource(R.drawable.current_background);
+
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams(GridLayout.spec(i), GridLayout.spec(j));
+
+                int size = convertToDp();
+                params.width = size;
+                params.height = size;
+                params.setMargins(4, 4, 4, 4);
+
+                currentView.setLayoutParams(params);
+                currentView.setAdjustViewBounds(true);
+
                 final int row = i, col = j;
 
                 currentView.setOnClickListener(v -> {
@@ -57,6 +59,12 @@ public class ElectricLinkActivity extends AppCompatActivity
                 gameGrid.addView(currentView);
             }
         }
+    }
+
+    private int convertToDp()
+    {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round(80 * density);
     }
 
     private void updateCurrentView(ImageView currentView, Current current)
@@ -76,6 +84,7 @@ public class ElectricLinkActivity extends AppCompatActivity
             case 10: currentView.setImageResource(R.drawable.current_vertical); break;
         }
     }
+    @SuppressLint("StringFormatInvalid")
     private void updateScore()
     {
         scoreText.setText(getString(R.string.score, game.getScore()));

@@ -1,5 +1,6 @@
 package com.example.noggin_joggin;
 
+
 public class ElectricLinkGame
 {
     private final Current[][] grid;
@@ -22,25 +23,75 @@ public class ElectricLinkGame
         {
             for (int j = 0; j < cols; j++)
             {
-                grid[i][j] = new Current();
+               int direction = (i + j) % 11;
+               grid[i][j] = new Current(direction);
             }
         }
     }
 
     public void rotateCurrent(int row, int col)
     {
-        grid[row][col].rotate();
-        checkConnections();
-    }
-
-    private void checkConnections()
-    {
-
+        Current current = grid[row][col];
+        if (current.canRotate())
+        {
+            current.rotate();
+            checkConnections();
+        }
     }
 
     public Current getCurrent(int row, int col)
     {
         return grid[row][col];
+    }
+
+    private void checkConnections()
+    {
+        score = 0;
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (isCurrentConnected(i, j))
+                {
+                    score++;
+                }
+            }
+        }
+    }
+
+    public boolean isCurrentConnected(int row, int col)
+    {
+        Current current = grid[row][col];
+        int direction = current.getDirection();
+
+        if (row > 0 && isConnecting(direction, grid[row -1][col].getDirection(), 0))
+        {
+            return true;
+        }
+
+        if (row < rows - 1 && isConnecting(direction, grid[row + 1][col].getDirection(), 2))
+        {
+            return true;
+        }
+
+        if (col > 0 && isConnecting(direction, grid[row][col - 1].getDirection(), 3))
+        {
+            return true;
+        }
+
+        return col < cols - 1 && isConnecting(direction, grid[row][col + 1].getDirection(), 1);
+    }
+
+    private boolean isConnecting(int fromDirection, int toDirection, int directionToCheck)
+    {
+        switch (directionToCheck)
+        {
+            case 0: return fromDirection == 2 && toDirection == 0;
+            case 1: return fromDirection == 3 && toDirection == 1;
+            case 2: return fromDirection == 0 && toDirection == 2;
+            case 3: return fromDirection == 1 && toDirection == 3;
+            default: return false;
+        }
     }
 
     public int getScore()
@@ -52,5 +103,21 @@ public class ElectricLinkGame
     {
         initializeGrid();
         score = 0;
+    }
+
+    public int getPieceCount(int pieceType)
+    {
+        int count = 0;
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (grid[i][j].getDirection() == pieceType)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
