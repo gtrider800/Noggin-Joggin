@@ -16,6 +16,18 @@
     <string name="reset">Reset</string>
     <string name="home" >Home</string>
     <string name="electric_link">Electric Link</string>
+    <string name="horizontal_left">Horizontal: %1$d left</string>
+    <string name="vertical_left">Vertical:  %1$d left</string>
+    <string name="plus_left">Plus:  %1$d left</string>
+    <string name="t_left">T:  %1$d left</string>
+    <string name="right_t_left">Right T:  %1$d left</string>
+    <string name="left_t_left">Left T:  %1$d left</string>
+    <string name="opposite_t_left">Upside Down T:  %1$d left</string>
+    <string name="right_down_curve_left">Right Down Elbow:  %1$d left</string>
+    <string name="right_upper_curve_left">Right Upper Elbow:  %1$d left</string>
+    <string name="beginning_left">Beginning:  %1$d left</string>
+    <string name="end_left">End:  %1$d left</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris volutpat, dolor id

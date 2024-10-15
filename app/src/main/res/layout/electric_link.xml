@@ -37,6 +37,7 @@
         android:layout_marginTop="16dp" />
 
     <FrameLayout
+        android:id="@+id/current_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text"
@@ -61,9 +62,10 @@
         android:layout_height="wrap_content"
         android:text="@string/score"
         android:textSize="24sp"
-        android:layout_below="@drawable/current_frame"
+        android:layout_below="@id/current_frame"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
+
 
     <Button
         android:id="@+id/home_button"
@@ -83,7 +85,97 @@
         android:text="@string/reset"
         android:layout_marginBottom="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/home_button"
         android:layout_marginEnd="16dp"/>
 
+
+    <GridLayout
+            android:id="@+id/piece_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/score_text"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:padding="16dp" >
+
+        <TextView
+            android:id="@+id/horizontal_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/horizontal_left" />
+
+        <TextView
+            android:id="@+id/plus_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/plus_left" />
+
+        <TextView
+            android:id="@+id/right_down_curve_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/right_down_curve_left" />
+
+        <TextView
+            android:id="@+id/beginning_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/beginning_left" />
+
+        <TextView
+            android:id="@+id/end_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/end_left" />
+
+        <TextView
+            android:id="@+id/right_upper_curve_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/right_upper_curve_left" />
+
+        <TextView
+            android:id="@+id/t_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/t_left" />
+
+        <TextView
+            android:id="@+id/left_t_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/left_t_left" />
+
+        <TextView
+            android:id="@+id/right_t_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/right_t_left" />
+
+        <TextView
+            android:id="@+id/opposite_t_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/opposite_t_left" />
+
+        <TextView
+            android:id="@+id/vertical_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="@string/vertical_left" />
+    </GridLayout>
+
 </RelativeLayout>
+
