@@ -1,12 +1,16 @@
 package com.example.noggin_joggin;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ public class code_breaker extends AppCompatActivity {
     private Button lastColorButton; // Store last clicked color button
     private Button lastTargetButton; // Store last clicked target button
     private boolean isColorButtonLocked = false; // Lock status
+    private final int maxGuesses = 8;
+    private int currentGuesses = 1;
+    boolean hasAllCorrect = true;
     public enum Colors {
         GREY(Color.parseColor("#757575")),
         RED(Color.parseColor("#F24822")),
@@ -177,7 +184,7 @@ public class code_breaker extends AppCompatActivity {
 
     public void guessPattern() {
         guessPattern.clear(); // Clear previous guesses to avoid retaining old data
-
+        hasAllCorrect = true;
         // Capture the colors of buttons 7-12
         for (int i = 7; i <= 12; i++) {
             Button guessButton = findViewById(getButtonId(i));
@@ -193,49 +200,53 @@ public class code_breaker extends AppCompatActivity {
     }
 
     private void comparePatterns() {
-        // Clear previous indicator states
         resetIndicators();
+        boolean[] guessed = new boolean[guessPattern.size()];
+        boolean[] keyUsed = new boolean[keyPattern.size()];
 
-        boolean[] guessed = new boolean[guessPattern.size()]; // Track guessed colors
-        boolean[] keyUsed = new boolean[keyPattern.size()]; // Track used key colors
-
-        boolean hasAllCorrect = true; // Flag to check if all guesses are correct
-
-        // First pass: Check for correct colors in correct positions
         for (int i = 0; i < guessPattern.size(); i++) {
             if (guessPattern.get(i).equals(keyPattern.get(i))) {
-                guessed[i] = true; // Mark as guessed
-                keyUsed[i] = true; // Mark key color as used
-                setIndicatorColor(i, Color.GREEN); // Green for correct position
+                guessed[i] = true;
+                keyUsed[i] = true;
+                setIndicatorColor(i, Color.GREEN);
             } else {
-                hasAllCorrect = false; // Set to false if any guess is incorrect
+                hasAllCorrect = false;
             }
         }
 
-        // Second pass: Check for correct colors in wrong positions
         for (int i = 0; i < guessPattern.size(); i++) {
-            if (!guessed[i]) { // Only check if not already marked
+            if (!guessed[i]) {
                 for (int j = 0; j < keyPattern.size(); j++) {
                     if (!keyUsed[j] && guessPattern.get(i).equals(keyPattern.get(j))) {
-                        keyUsed[j] = true; // Mark key color as used
-                        setIndicatorColor(i, Color.parseColor("#FF9800")); // Orange for correct color, wrong position
-                        hasAllCorrect = false; // Still not all correct if any match is found
-                        break; // Break after finding the first match
+                        keyUsed[j] = true;
+                        setIndicatorColor(i, Color.parseColor("#FF9800"));
+                        hasAllCorrect = false;
+                        break;
                     }
                 }
             }
         }
 
-        // Show Toast message if all colors were guessed correctly
-        if (hasAllCorrect) {
-            Toast.makeText(this, "Correct Guess! All colors match!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Some colors are incorrect. Try again!", Toast.LENGTH_SHORT).show();
+        runOnUiThread(() -> {
+            String message = hasAllCorrect ? "Correct Guess! All colors match!" : "Some colors are incorrect. Try again!";
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            guessNumber();
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void guessNumber() {
+        TextView guessLabel = findViewById(R.id.guessLabel);
+        if (currentGuesses < (maxGuesses+1)) {
+            currentGuesses++;
+            guessLabel.setText("Guess: " + currentGuesses + " of " + maxGuesses);
+            answerDialog();
+        } else {answerDialog();
         }
     }
-    
 
     public void generateRandomPattern() {
+        keyPattern.clear();
         List<Colors> colorList = new ArrayList<>();
         Collections.addAll(colorList, Colors.values());
 
@@ -292,12 +303,72 @@ public class code_breaker extends AppCompatActivity {
         int defaultColor = Color.parseColor("#E2A97E"); // or any other default color you use
         resetIndicators();
         // Reset the colors of buttons 7-12
-        for (int i = 7; i <= 12; i++) {
-            Button button = findViewById(getButtonId(i));
-            if (button != null) {
-                button.setBackgroundColor(defaultColor); // Reset to default color
+      if(hasAllCorrect) {
+          for (int i = 1; i <= 12; i++) {
+              Button button = findViewById(getButtonId(i));
+              if (button != null) {
+                  button.setBackgroundColor(defaultColor); // Reset to default color
+              }
+          }
+      }
+      else{
+            for (int i = 7; i <= 12; i++) {
+                Button button = findViewById(getButtonId(i));
+                if (button != null) {
+                    button.setBackgroundColor(defaultColor); // Reset to default color
+                }
             }
         }
     }
+    @SuppressLint("SetTextI18n")
+    private void playAgain(){
+        hasAllCorrect = true;
+        resetButtons();
+        currentGuesses = 1;
+        TextView guessLabel = findViewById(R.id.guessLabel);
+        guessLabel.setText("Guess: " + currentGuesses + " of " + maxGuesses);
+        generateRandomPattern();
+    }
 
+    @SuppressLint("SetTextI18n")
+    public void answerDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.code_guess, null);
+        TextView codeMessage = dialogView.findViewById(R.id.guessMessage);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(hasAllCorrect || currentGuesses == (maxGuesses+1)) {
+            if(hasAllCorrect){ codeMessage.setText("congratulations you guess correctly in "+ (currentGuesses-1)+" guesses!");}
+            else{codeMessage.setText("Your guess is incorrect. You have reached you guess limit.");}
+            builder.setView(dialogView)
+                    .setCancelable(false)
+                    .setPositiveButton("Home", (dialog, which) -> {
+                        // Action to perform when home is clicked
+                        Intent intent = new Intent(code_breaker.this, MainActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss(); // Close the dialog
+                    })
+                    .setNegativeButton("Play Again", (dialog, which) -> {
+                        // Action to perform when guess again is clicked
+                        playAgain();
+                        dialog.dismiss(); // Close the dialog
+                    });}
+
+        else{
+            codeMessage.setText("Your guess is incorrect. You are on guess "+ currentGuesses+" of 8 guesses.");
+            builder.setView(dialogView)
+                .setCancelable(false)
+                .setPositiveButton("Home", (dialog, which) -> {
+                    // Action to perform when home is clicked
+                    Intent intent = new Intent(code_breaker.this, MainActivity.class);
+                    startActivity(intent);
+                    dialog.dismiss(); // Close the dialog
+                })
+                .setNegativeButton("Guess Again", (dialog, which) -> {
+                    // Action to perform when guess again is clicked
+                    dialog.dismiss(); // Close the dialog
+                });}
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
 }

@@ -47,7 +47,7 @@
                 app:backgroundTint="@color/home_button"
                 android:text="@string/Home"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="21sp"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.067" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="25dp" android:layout_marginStart="20dp" android:gravity="center"
@@ -61,7 +61,7 @@
                 app:backgroundTint="@color/hint_button"
                 android:text="@string/hint"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="21sp"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.866" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="25dp" android:gravity="center" android:layout_marginEnd="20dp"/>
@@ -441,7 +441,7 @@
         <TextView
                 android:text="@string/guess_1_of_8"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView3"
+                android:layout_height="wrap_content" android:id="@+id/guessLabel"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button17" android:layout_marginTop="50dp"
                 android:layout_marginEnd="250dp" android:textStyle="bold"/>
