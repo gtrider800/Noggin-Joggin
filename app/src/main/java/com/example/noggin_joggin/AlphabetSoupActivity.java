@@ -1,14 +1,19 @@
 package com.example.noggin_joggin;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Spanned;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +34,8 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     private List<String> foundWords;
     private int score;  // To track the user's score
     private CountDownTimer countDownTimer;
-    private int roundCount; // Track the number of rounds
+    private ImageButton infoButton; // Declare the info button
+    private int roundCount = 0; // To track the number of rounds played
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +53,33 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         foundWordsTextView = findViewById(R.id.foundWordsTextView);
         timerTextView = findViewById(R.id.timerTextView);
         submitButton = findViewById(R.id.SubmitButton);
+        infoButton = findViewById(R.id.Background); // Link to the existing info button
 
         currentWord = new StringBuilder();
         foundWords = new ArrayList<>();
         score = 0;
-        roundCount = 0; // Initialize round count
 
         // Generate random letters and set to buttons
-        generateAndSetRandomLetters();
+        startNewRound();
 
         // Set up the submit button click listener
         submitButton.setOnClickListener(view -> checkWordInFile());
 
+        // Set up the info button click listener
+        infoButton.setOnClickListener(view -> showInfoDialog());
+
         // Start the countdown timer
         startTimer();
+    }
+
+    // Start a new round with fresh letters
+    private void startNewRound() {
+        List<Character> randomLetters = generateRandomLetters();
+        setLettersToButtons(randomLetters);
+        setLetterButtonClickListeners(randomLetters);
+        currentWord.setLength(0);  // Clear the current word
+        displayTextView.setText(""); // Clear the displayed text
+        foundWords.clear();          // Clear found words for new round
     }
 
     // Start the countdown timer
@@ -71,35 +90,40 @@ public class AlphabetSoupActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                resetLetters();  // Reset the letters every 30 seconds
-                roundCount++;    // Increment the round count
-                if (roundCount < 5) {
-                    startTimer(); // Restart the timer for next round
+                roundCount++; // Increment round count
+                if (roundCount >= 5) {
+                    showGameOverScreen(); // Show Game Over after 5 rounds
                 } else {
-                    endGame(); // End the game after 5 rounds
+                    startNewRound(); // Start a new round
+                    startTimer(); // Restart the timer
                 }
             }
         }.start();
     }
 
-    // Reset the letters and update the buttons with new listeners
-    private void resetLetters() {
-        generateAndSetRandomLetters();
-    }
-
-    // Generate random letters and set them to buttons
-    private void generateAndSetRandomLetters() {
-        List<Character> randomLetters = generateRandomLetters();
-        setLettersToButtons(randomLetters);
-        setLetterButtonClickListeners(randomLetters);  // Update click listeners with new letters
-    }
-
-    // End the game and show the Game Over screen
-    private void endGame() {
-        Intent intent = new Intent(AlphabetSoupActivity.this, GameOverActivity.class);
-        intent.putExtra("SCORE", score); // Pass the score to GameOverActivity
+    // Show game over screen
+    private void showGameOverScreen() {
+        Intent intent = new Intent(this, GameOverActivity.class);
+        intent.putExtra("SCORE", score);
         startActivity(intent);
-        finish(); // Finish the current activity
+        finish(); // Close the current activity
+    }
+
+    // Show info dialog
+    public void showInfoDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.info_dialog, null);
+        TextView dialogMessage = dialogView.findViewById(R.id.dialogMessage);
+
+        String text = getString(R.string.info_message);
+        Spanned spanned = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        dialogMessage.setText(spanned);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK", null)
+                .create()
+                .show();
     }
 
     // Check if the word exists in the inputWords.txt file

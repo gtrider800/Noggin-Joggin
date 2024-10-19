@@ -181,11 +181,11 @@
             android:text="@string/submit_word"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:background="@drawable/letter_button"
-            android:textColor="#090404"
+            android:textColor="#F8F8F8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"/>
 
 
     <!-- Words Found Label -->
