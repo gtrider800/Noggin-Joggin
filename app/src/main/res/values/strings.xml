@@ -51,4 +51,9 @@
     <string name="color3">color3</string>
     <string name="color2">color2</string>
     <string name="color1">color</string>
+    <string name="alphabet_soup_title">Alphabet Soup</string>
+    <string name="submit_word">Submit Word</string>
+    <string name="words_found">Words Found</string>
+    <string name="time_left">Time Left: 30</string>
 </resources>
+

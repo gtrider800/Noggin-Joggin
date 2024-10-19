@@ -43,6 +43,8 @@
                 android:theme="@style/Theme.Noggin_Joggin" >
         </activity>
 
+        <activity android:name=".GameOverActivity"></activity>
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.noggin_joggin;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,8 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class AlphabetSoupActivity extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     private List<String> foundWords;
     private int score;  // To track the user's score
     private CountDownTimer countDownTimer;
+    private int roundCount; // Track the number of rounds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +51,10 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         currentWord = new StringBuilder();
         foundWords = new ArrayList<>();
         score = 0;
+        roundCount = 0; // Initialize round count
 
         // Generate random letters and set to buttons
-        List<Character> randomLetters = generateRandomLetters();
-        setLettersToButtons(randomLetters);
-        setLetterButtonClickListeners(randomLetters);
+        generateAndSetRandomLetters();
 
         // Set up the submit button click listener
         submitButton.setOnClickListener(view -> checkWordInFile());
@@ -69,16 +72,34 @@ public class AlphabetSoupActivity extends AppCompatActivity {
 
             public void onFinish() {
                 resetLetters();  // Reset the letters every 30 seconds
-                startTimer();    // Restart the timer
+                roundCount++;    // Increment the round count
+                if (roundCount < 5) {
+                    startTimer(); // Restart the timer for next round
+                } else {
+                    endGame(); // End the game after 5 rounds
+                }
             }
         }.start();
     }
 
     // Reset the letters and update the buttons with new listeners
     private void resetLetters() {
-        List<Character> newLetters = generateRandomLetters();
-        setLettersToButtons(newLetters);
-        setLetterButtonClickListeners(newLetters);  // Update click listeners with new letters
+        generateAndSetRandomLetters();
+    }
+
+    // Generate random letters and set them to buttons
+    private void generateAndSetRandomLetters() {
+        List<Character> randomLetters = generateRandomLetters();
+        setLettersToButtons(randomLetters);
+        setLetterButtonClickListeners(randomLetters);  // Update click listeners with new letters
+    }
+
+    // End the game and show the Game Over screen
+    private void endGame() {
+        Intent intent = new Intent(AlphabetSoupActivity.this, GameOverActivity.class);
+        intent.putExtra("SCORE", score); // Pass the score to GameOverActivity
+        startActivity(intent);
+        finish(); // Finish the current activity
     }
 
     // Check if the word exists in the inputWords.txt file
@@ -165,11 +186,24 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     // Generate random letters (for simplicity, using random letters A-Z)
     private List<Character> generateRandomLetters() {
         List<Character> letters = new ArrayList<>();
+        Set<Character> selectedLetters = new HashSet<>();
         Random random = new Random();
-        for (int i = 0; i < 6; i++) {
+        String vowels = "AEIOU";
+
+        // Ensure at least one vowel is selected
+        char vowel = vowels.charAt(random.nextInt(vowels.length()));
+        letters.add(vowel);
+        selectedLetters.add(vowel);
+
+        // Generate the remaining letters
+        while (letters.size() < 6) {
             char randomLetter = (char) ('A' + random.nextInt(26));  // Random letter between A-Z
-            letters.add(randomLetter);
+            if (!selectedLetters.contains(randomLetter)) {
+                selectedLetters.add(randomLetter);
+                letters.add(randomLetter);
+            }
         }
+
         return letters;
     }
 }
