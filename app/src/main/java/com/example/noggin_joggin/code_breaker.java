@@ -334,10 +334,12 @@ public class code_breaker extends AppCompatActivity {
     public void answerDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.code_guess, null);
         TextView codeMessage = dialogView.findViewById(R.id.guessMessage);
+        ImageView answerImage = dialogView.findViewById(R.id.happy);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(hasAllCorrect || currentGuesses == (maxGuesses+1)) {
             if(hasAllCorrect){ codeMessage.setText("congratulations you guess correctly in "+ (currentGuesses-1)+" guesses!");}
-            else{codeMessage.setText("Your guess is incorrect. You have reached you guess limit.");}
+            else{codeMessage.setText("Your guess is incorrect. You have reached you guess limit.");
+            answerImage.setVisibility(View.GONE);}
             builder.setView(dialogView)
                     .setCancelable(false)
                     .setPositiveButton("Home", (dialog, which) -> {
@@ -354,6 +356,7 @@ public class code_breaker extends AppCompatActivity {
 
         else{
             codeMessage.setText("Your guess is incorrect. You are on guess "+ currentGuesses+" of 8 guesses.");
+            answerImage.setVisibility(View.GONE);
             builder.setView(dialogView)
                 .setCancelable(false)
                 .setPositiveButton("Home", (dialog, which) -> {

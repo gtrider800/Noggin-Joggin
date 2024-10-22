@@ -12,9 +12,9 @@
     </style>
 
     <style name="CodeButtonStyle" parent="BaseButtonStyle">
-        <item name="android:background">@drawable/code_test</item>
+        <item name="android:background">@drawable/code_button</item>
         <item name="android:backgroundTint">@null</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@null</item>
     </style>
 
 </resources>
