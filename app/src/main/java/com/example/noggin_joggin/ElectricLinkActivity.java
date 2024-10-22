@@ -46,7 +46,7 @@ public class ElectricLinkActivity extends AppCompatActivity
         end_info = findViewById(R.id.end_info);
 
 
-        game = new ElectricLinkGame(4, 4);
+        game = new ElectricLinkGame(4, 4, gameGrid);
         setupGrid();
 
         Button resetButton = findViewById(R.id.reset_button);
@@ -102,7 +102,7 @@ public class ElectricLinkActivity extends AppCompatActivity
     {
         if (isCurrent)
         {
-            currentView.setImageResource(R.drawable.current_active);
+            currentView.setImageResource(0);
         }
         else
         {
@@ -143,6 +143,7 @@ public class ElectricLinkActivity extends AppCompatActivity
         setupGrid();
         updateScore();
         updatePieceInfo();
+        clearCurrentFlow();
     }
 
     private void updatePieceInfo()
@@ -158,5 +159,14 @@ public class ElectricLinkActivity extends AppCompatActivity
         right_upper_curve_info.setText(getString(R.string.right_upper_curve_left,game.getPieceCount(8)));
         beginning_info.setText(getString(R.string.beginning_left,game.getPieceCount(9)));
         end_info.setText(getString(R.string.end_left,game.getPieceCount(10)));
+    }
+
+    private void clearCurrentFlow()
+    {
+        for (int i = 0; i < gameGrid.getChildCount(); i++)
+        {
+            ImageView currentView = (ImageView) gameGrid.getChildAt(i);
+            currentView.setImageResource(R.drawable.current_background);
+        }
     }
 }

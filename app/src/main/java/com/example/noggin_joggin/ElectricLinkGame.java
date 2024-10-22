@@ -1,5 +1,9 @@
 package com.example.noggin_joggin;
 
+import java.util.List;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+
 
 public class ElectricLinkGame
 {
@@ -7,13 +11,15 @@ public class ElectricLinkGame
     private final int rows;
     private final int cols;
     private int score;
+    private final GridLayout gameGrid;
 
-    public ElectricLinkGame(int rows, int cols)
+    public ElectricLinkGame(int rows, int cols, GridLayout gameGrid)
     {
         this.rows = rows;
         this.cols = cols;
         this.grid = new Current[rows][cols];
         this.score = 0;
+        this.gameGrid = gameGrid;
         initializeGrid();
     }
 
@@ -54,6 +60,12 @@ public class ElectricLinkGame
                 if (isCurrentConnected(i, j))
                 {
                     score++;
+                    List<Position> connectedPositions = grid[i][j].getConnectedPositions(grid, i, j);
+                    for (Position pos : connectedPositions)
+                    {
+                        ImageView currentView = (ImageView) gameGrid.getChildAt(pos.row * cols + pos.col);
+                        currentView.setImageResource(R.drawable.current_flow);
+                    }
                 }
             }
         }
