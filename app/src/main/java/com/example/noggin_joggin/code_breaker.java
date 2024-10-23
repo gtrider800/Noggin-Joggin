@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +17,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
+import android.widget.Button;
+
+
 
 public class code_breaker extends AppCompatActivity {
 
@@ -57,9 +63,15 @@ public class code_breaker extends AppCompatActivity {
 
         generateRandomPattern();
 
-        // Find the color buttons 13-20
+
+        // Set colors for buttons 13-20 before setting click listeners
         for (int i = 13; i <= 20; i++) {
             Button colorButton = findViewById(getButtonId(i));
+
+            // Set the color for layers 2-5 before setting the click listener
+            int color = Colors.values()[i - 13].getColorValue();
+            setButtonLayerColors(colorButton, color);
+
             colorButton.setOnClickListener(v -> {
                 if (lastTargetButton != null && !isColorButtonLocked) {
                     lastColorButton = (Button) v; // Store the last clicked color button
@@ -76,7 +88,6 @@ public class code_breaker extends AppCompatActivity {
         for (int i = 1; i <= 12; i++) {
             Button targetButton = findViewById(getButtonId(i));
             targetButton.setOnClickListener(v -> {
-                // Unlock color buttons when a target button is clicked
                 isColorButtonLocked = false;
                 lastTargetButton = (Button) v; // Store the last clicked target button
             });
@@ -94,6 +105,22 @@ public class code_breaker extends AppCompatActivity {
 
         Button clearButton = findViewById(R.id.clear);
         clearButton.setOnClickListener(v -> resetButtons());
+    }
+
+    private void setButtonLayerColors(Button button, int color) {
+        Drawable background = button.getBackground();
+        if (background instanceof LayerDrawable) {
+            LayerDrawable layerDrawable = (LayerDrawable) background;
+
+            // Set the color for layers 2-5 (indices 1-4)
+            for (int i = 1; i <= 4; i++) {
+                Drawable layer = layerDrawable.getDrawable(i);
+                if (layer instanceof GradientDrawable) {
+                    ((GradientDrawable) layer).setColor(color);
+                    layer.invalidateSelf(); // Refresh the drawable
+                }
+            }
+        }
     }
 
     private int getButtonId(int index) {
@@ -145,34 +172,69 @@ public class code_breaker extends AppCompatActivity {
 
     private void changeColorOfLastTargetButton() {
         if (lastColorButton != null && lastTargetButton != null) {
-            // Get the background drawable of the last clicked color button
-            ColorDrawable colorDrawable = (ColorDrawable) lastColorButton.getBackground();
-            if (colorDrawable != null) {
-                int color = colorDrawable.getColor();
-                // Change the color of the last clicked target button
-                lastTargetButton.setBackgroundColor(color);
-                lastTargetButton=null;
+            Drawable background = lastTargetButton.getBackground();
+            if (background instanceof LayerDrawable) {
+                LayerDrawable layerDrawable = (LayerDrawable) background;
+
+
+                // Use the ID of lastTargetButton to determine the color
+                int buttonId = lastColorButton.getId();
+                int colorIndex = getColorIndexFromButtonId(buttonId); // Map the ID to the color index
+
+                if (colorIndex != -1) {
+                    int newColor = Colors.values()[colorIndex-12].getColorValue();
+
+                    // Change the color of layers 2-5 (indices 1-4) using the new color
+                    for (int i = 1; i <= 4; i++) {
+                        Drawable layer = layerDrawable.getDrawable(i);
+                        if (layer instanceof GradientDrawable) {
+                            ((GradientDrawable) layer).setColor(newColor);
+                            layer.invalidateSelf(); // Refresh the drawable
+                        }
+                    }
+                }
             }
+            lastTargetButton = null; // Reset the last target button
         }
     }
 
     private void changeColorOfAnswerButton() {
         if (lastColorButton != null && lastTargetButton == null) {
-            ColorDrawable colorDrawable = (ColorDrawable) lastColorButton.getBackground();
-            if (colorDrawable != null) {
-                int color = colorDrawable.getColor();
+            // Define the default color
+            int defaultColor = Color.parseColor("#E2A97E");
 
-                // Define the default color
-                int defaultColor = Color.parseColor("#E2A97E");
+            // Change the color of the next available answer button
+            for (int i = 7; i <= 12; i++) {
+                Button answerButton = findViewById(getButtonId(i));
+                if (answerButton != null) {
+                    Drawable answerButtonDrawable = answerButton.getBackground();
+                    if (answerButtonDrawable instanceof LayerDrawable) {
+                        LayerDrawable answerLayerDrawable = (LayerDrawable) answerButtonDrawable;
 
-                // Change the color of the next available answer button
-                for (int i = 7; i <= 12; i++) {
-                    Button answerButton = findViewById(getButtonId(i));
-                    if (answerButton != null) {
-                        ColorDrawable answerButtonColorDrawable = (ColorDrawable) answerButton.getBackground();
-                        if (answerButtonColorDrawable != null) {
-                            if (answerButtonColorDrawable.getColor() == defaultColor) {
-                                answerButton.setBackgroundColor(color);
+                        // Check if the second layer is set to the default color
+                        Drawable secondLayer = answerLayerDrawable.getDrawable(1);
+                        int currentColor = Color.TRANSPARENT; // Default color for comparison
+                        if (secondLayer instanceof GradientDrawable) {
+                            currentColor = ((GradientDrawable) secondLayer).getColor().getDefaultColor();
+                        }
+
+                        // Proceed only if the second layer is the default color
+                        if (currentColor == defaultColor) {
+                            // Use the ID of answerButton to determine the color
+                            int buttonId = lastColorButton.getId();
+                            int colorIndex = getColorIndexFromButtonId(buttonId);
+
+                            if (colorIndex != -1) {
+                                int newColor = Colors.values()[colorIndex-12].getColorValue();
+
+                                // Change colors for layers 2-5 (indices 1-4) using the new color
+                                for (int j = 1; j <= 4; j++) {
+                                    Drawable layer = answerLayerDrawable.getDrawable(j);
+                                    if (layer instanceof GradientDrawable) {
+                                        ((GradientDrawable) layer).setColor(newColor);
+                                        layer.invalidateSelf(); // Refresh the drawable
+                                    }
+                                }
                                 break; // Only change the first available button
                             }
                         }
@@ -180,6 +242,32 @@ public class code_breaker extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    // Method to map button ID to color index
+    private int getColorIndexFromButtonId(int buttonId) {
+        if (buttonId == R.id.button1) return 0;
+        else if (buttonId == R.id.button2) return 1;
+        else if (buttonId == R.id.button3) return 2;
+        else if (buttonId == R.id.button4) return 3;
+        else if (buttonId == R.id.button5) return 4;
+        else if (buttonId == R.id.button6) return 5;
+        else if (buttonId == R.id.button7) return 6;
+        else if (buttonId == R.id.button8) return 7;
+        else if (buttonId == R.id.button9) return 8;
+        else if (buttonId == R.id.button10) return 9;
+        else if (buttonId == R.id.button11) return 10;
+        else if (buttonId == R.id.button12) return 11;
+        else if (buttonId == R.id.button13) return 12;
+        else if (buttonId == R.id.button14) return 13;
+        else if (buttonId == R.id.button15) return 14;
+        else if (buttonId == R.id.button16) return 15;
+        else if (buttonId == R.id.button17) return 16;
+        else if (buttonId == R.id.button18) return 17;
+        else if (buttonId == R.id.button19) return 18;
+        else if (buttonId == R.id.button20) return 19;
+        else return -1; // Invalid ID
     }
 
     public void guessPattern() {
@@ -300,22 +388,29 @@ public class code_breaker extends AppCompatActivity {
 
     private void resetButtons() {
         // Define the default color
-        int defaultColor = Color.parseColor("#E2A97E"); // or any other default color you use
+        int defaultColor = Color.parseColor("#E2A97E"); // Default color
+
         resetIndicators();
-        // Reset the colors of buttons 7-12
-      if(hasAllCorrect) {
-          for (int i = 1; i <= 12; i++) {
-              Button button = findViewById(getButtonId(i));
-              if (button != null) {
-                  button.setBackgroundColor(defaultColor); // Reset to default color
-              }
-          }
-      }
-      else{
-            for (int i = 7; i <= 12; i++) {
-                Button button = findViewById(getButtonId(i));
-                if (button != null) {
-                    button.setBackgroundColor(defaultColor); // Reset to default color
+
+        // Reset the colors of buttons 7-12 or all buttons based on hasAllCorrect
+        int start = hasAllCorrect ? 1 : 7; // Decide the starting index based on hasAllCorrect
+        int end = hasAllCorrect ? 12 : 12; // End index remains the same
+
+        for (int i = start; i <= end; i++) {
+            Button button = findViewById(getButtonId(i));
+            if (button != null) {
+                Drawable buttonDrawable = button.getBackground();
+                if (buttonDrawable instanceof LayerDrawable) {
+                    LayerDrawable layerDrawable = (LayerDrawable) buttonDrawable;
+
+                    // Reset colors for layers 2-5 (indices 1-4) to default color
+                    for (int j = 1; j <= 4; j++) {
+                        Drawable layer = layerDrawable.getDrawable(j);
+                        if (layer instanceof GradientDrawable) {
+                            ((GradientDrawable) layer).setColor(defaultColor);
+                            layer.invalidateSelf(); // Refresh the drawable
+                        }
+                    }
                 }
             }
         }
