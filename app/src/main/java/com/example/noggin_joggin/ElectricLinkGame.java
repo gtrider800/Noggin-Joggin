@@ -1,9 +1,6 @@
 package com.example.noggin_joggin;
 
-import java.util.List;
 import android.widget.GridLayout;
-import android.widget.ImageView;
-
 
 public class ElectricLinkGame
 {
@@ -135,4 +132,8 @@ public class ElectricLinkGame
         return count;
     }
 
+    public GridLayout getGameGrid()
+    {
+        return gameGrid;
+    }
 }
