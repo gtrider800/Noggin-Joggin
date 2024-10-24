@@ -6,5 +6,6 @@
     <color name="code_default">#E2A97E</color>
     <color name="home_button">#F3AF28</color>
     <color name="hint_button">#E38561</color>
+    <color name="red">#FF0000</color>
 
 </resources>

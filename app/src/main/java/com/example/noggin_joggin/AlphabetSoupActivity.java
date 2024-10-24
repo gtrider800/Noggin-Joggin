@@ -79,14 +79,20 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         setLetterButtonClickListeners(randomLetters);
         currentWord.setLength(0);  // Clear the current word
         displayTextView.setText(""); // Clear the displayed text
-        foundWords.clear();          // Clear found words for new round
     }
 
-    // Start the countdown timer
     private void startTimer() {
         countDownTimer = new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
-                timerTextView.setText("Time Left: " + millisUntilFinished / 1000);
+                long secondsRemaining = millisUntilFinished / 1000;
+                timerTextView.setText("Time Left: " + secondsRemaining);
+
+                // Change color when there are 5 seconds or less remaining
+                if (secondsRemaining <= 5) {
+                    timerTextView.setTextColor(getResources().getColor(R.color.red)); // Assuming you have a red color in colors.xml
+                } else {
+                    timerTextView.setTextColor(getResources().getColor(R.color.black)); // Default to black or any other color
+                }
             }
 
             public void onFinish() {
@@ -129,6 +135,12 @@ public class AlphabetSoupActivity extends AppCompatActivity {
     // Check if the word exists in the inputWords.txt file
     private void checkWordInFile() {
         String enteredWord = currentWord.toString().trim();
+
+        if (enteredWord.isEmpty()) {
+            Toast.makeText(this, "Please enter a word before submitting.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         boolean isWordFound = false;
 
         if (foundWords.contains(enteredWord)) {
@@ -138,21 +150,23 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         }
 
         try {
-            AssetManager assetManager = getAssets();
-            InputStream inputStream = assetManager.open("inputWords.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            // Load words into a Set for quick lookup
+            Set<String> wordSet = loadWordsFromFile();
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.equalsIgnoreCase(enteredWord)) {
-                    isWordFound = true;
-                    foundWords.add(enteredWord);
-                    score++;  // Increment the score
-                    break;
+            if (wordSet.contains(enteredWord.toLowerCase())) {
+                isWordFound = true;
+                foundWords.add(enteredWord);
+
+                // Update score based on word length
+                if (enteredWord.length() == 4) {
+                    score += 2;  // 2 points for 4-letter words
+                } else if (enteredWord.length() == 5) {
+                    score += 3;  // 3 points for 5-letter words
+                } else {
+                    score++;  // Default 1 point for words of other lengths
                 }
             }
 
-            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,6 +180,22 @@ public class AlphabetSoupActivity extends AppCompatActivity {
 
         clearInput();
     }
+
+    private Set<String> loadWordsFromFile() throws IOException {
+        Set<String> wordSet = new HashSet<>();
+        AssetManager assetManager = getAssets();
+        InputStream inputStream = assetManager.open("inputWords.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            wordSet.add(line.trim().toLowerCase()); // Store words in lowercase for consistent comparison
+        }
+
+        reader.close();
+        return wordSet;
+    }
+
 
     private void updateFoundWordsDisplay() {
         StringBuilder wordsDisplay = new StringBuilder();
@@ -231,3 +261,4 @@ public class AlphabetSoupActivity extends AppCompatActivity {
         return letters;
     }
 }
+
