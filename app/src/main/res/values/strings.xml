@@ -25,8 +25,8 @@
     <string name="opposite_t_left">Upside Down T:  %1$d left</string>
     <string name="right_down_curve_left">Right Down Elbow:  %1$d left</string>
     <string name="right_upper_curve_left">Right Upper Elbow:  %1$d left</string>
-    <string name="beginning_left">Beginning:  %1$d left</string>
-    <string name="end_left">End:  %1$d left</string>
+    <string name="left_down_left">Left Down Elbow:  %1$d left</string>
+    <string name="left_up_left">Left Upper Elbow:  %1$d left</string>
 
 
     <string name="lorem_ipsum">

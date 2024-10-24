@@ -60,12 +60,6 @@ public class ElectricLinkGame
                 if (isCurrentConnected(i, j))
                 {
                     score++;
-                    List<Position> connectedPositions = grid[i][j].getConnectedPositions(grid, i, j);
-                    for (Position pos : connectedPositions)
-                    {
-                        ImageView currentView = (ImageView) gameGrid.getChildAt(pos.row * cols + pos.col);
-                        currentView.setImageResource(R.drawable.current_flow);
-                    }
                 }
             }
         }
@@ -76,32 +70,40 @@ public class ElectricLinkGame
         Current current = grid[row][col];
         int direction = current.getDirection();
 
-        if (row > 0 && isConnecting(direction, grid[row -1][col].getDirection(), 0))
+        if (row > 0 && isConnecting(direction, grid[row - 1][col].getDirection()))
         {
             return true;
         }
 
-        if (row < rows - 1 && isConnecting(direction, grid[row + 1][col].getDirection(), 2))
+        if (row < rows - 1 && isConnecting(direction, grid[row + 1][col]. getDirection()))
         {
             return true;
         }
 
-        if (col > 0 && isConnecting(direction, grid[row][col - 1].getDirection(), 3))
+        if (col > 0 && isConnecting(direction, grid[row][col - 1].getDirection()))
         {
             return true;
         }
-
-        return col < cols - 1 && isConnecting(direction, grid[row][col + 1].getDirection(), 1);
+        return col < cols - 1 && isConnecting(direction, grid[row][col + 1].getDirection());
     }
 
-    private boolean isConnecting(int fromDirection, int toDirection, int directionToCheck)
+    private boolean isConnecting(int direction, int directionToCheck)
     {
-        switch (directionToCheck)
+        switch (direction)
         {
-            case 0: return fromDirection == 2 && toDirection == 0;
-            case 1: return fromDirection == 3 && toDirection == 1;
-            case 2: return fromDirection == 0 && toDirection == 2;
-            case 3: return fromDirection == 1 && toDirection == 3;
+            case 0: return (directionToCheck == 1 || directionToCheck == 3);
+            case 1: return (directionToCheck == 0 || directionToCheck == 3);
+            case 2: return true;
+            case 3: return (directionToCheck == 1 || directionToCheck == 2);
+            case 4:
+            case 7:
+            case 9:
+                return (directionToCheck == 0 || directionToCheck == 2);
+            case 5:
+            case 10:
+                return (directionToCheck == 0 || directionToCheck == 1);
+            case 6: return (directionToCheck == 2 || directionToCheck == 1);
+            case 8: return (directionToCheck == 2 || directionToCheck == 3);
             default: return false;
         }
     }
@@ -132,4 +134,5 @@ public class ElectricLinkGame
         }
         return count;
     }
+
 }

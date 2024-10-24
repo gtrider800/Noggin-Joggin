@@ -22,8 +22,8 @@ public class ElectricLinkActivity extends AppCompatActivity
     private TextView opposite_t_info;
     private TextView right_down_curve_info;
     private TextView right_upper_curve_info;
-    private TextView beginning_info;
-    private TextView end_info;
+    private TextView left_down_info;
+    private TextView left_up_info;
 
 
     protected void onCreate(Bundle savedInstanceState)
@@ -42,8 +42,8 @@ public class ElectricLinkActivity extends AppCompatActivity
         opposite_t_info = findViewById(R.id.opposite_t_info);
         right_down_curve_info = findViewById(R.id.right_down_curve_info);
         right_upper_curve_info = findViewById(R.id.right_upper_curve_info);
-        beginning_info = findViewById(R.id.beginning_info);
-        end_info = findViewById(R.id.end_info);
+        left_down_info = findViewById(R.id.left_down_info);
+        left_up_info = findViewById(R.id.left_up_info);
 
 
         game = new ElectricLinkGame(4, 4, gameGrid);
@@ -116,8 +116,8 @@ public class ElectricLinkActivity extends AppCompatActivity
     {
         switch (direction)
         {
-            case 0: return R.drawable.current_beginning;
-            case 1: return R.drawable.current_end;
+            case 0: return R.drawable.current_left_down;
+            case 1: return R.drawable.current_left_up;
             case 2: return R.drawable.current_plus;
             case 3: return R.drawable.current_t_left;
             case 4: return R.drawable.current_t;
@@ -148,17 +148,17 @@ public class ElectricLinkActivity extends AppCompatActivity
 
     private void updatePieceInfo()
     {
-        horizontal_info.setText(getString(R.string.horizontal_left, game.getPieceCount(0)));
-        vertical_info.setText(getString(R.string.vertical_left,game.getPieceCount(1)));
-        plus_info.setText(getString(R.string.plus_left, game.getPieceCount(2)));
-        t_info.setText(getString(R.string.t_left,game.getPieceCount(3)));
-        right_t_info.setText(getString(R.string.right_t_left,game.getPieceCount(4)));
-        left_t_info.setText(getString(R.string.left_t_left,game.getPieceCount(5)));
-        opposite_t_info.setText(getString(R.string.opposite_t_left,game.getPieceCount(6)));
-        right_down_curve_info.setText(getString(R.string.right_down_curve_left,game.getPieceCount(7)));
-        right_upper_curve_info.setText(getString(R.string.right_upper_curve_left,game.getPieceCount(8)));
-        beginning_info.setText(getString(R.string.beginning_left,game.getPieceCount(9)));
-        end_info.setText(getString(R.string.end_left,game.getPieceCount(10)));
+        left_up_info.setText(getString(R.string.left_up_left, game.getPieceCount(0)));
+        left_down_info.setText(getString(R.string.left_down_left, game.getPieceCount(1)));
+        horizontal_info.setText(getString(R.string.horizontal_left, game.getPieceCount(2)));
+        vertical_info.setText(getString(R.string.vertical_left,game.getPieceCount(3)));
+        plus_info.setText(getString(R.string.plus_left, game.getPieceCount(4)));
+        t_info.setText(getString(R.string.t_left,game.getPieceCount(5)));
+        right_t_info.setText(getString(R.string.right_t_left,game.getPieceCount(6)));
+        left_t_info.setText(getString(R.string.left_t_left,game.getPieceCount(7)));
+        opposite_t_info.setText(getString(R.string.opposite_t_left,game.getPieceCount(8)));
+        right_down_curve_info.setText(getString(R.string.right_down_curve_left,game.getPieceCount(9)));
+        right_upper_curve_info.setText(getString(R.string.right_upper_curve_left,game.getPieceCount(10)));
     }
 
     private void clearCurrentFlow()
